@@ -1,4 +1,4 @@
 ---
 - name: netplan apply
-  command: "netplan apply"
+  command: /usr/sbin/netplan apply
   become: yes

@@ -1,0 +1,9 @@
+---
+# bake the crust
+
+- hosts: all
+  roles:
+    - role: users
+      tags: users
+    - role: services
+      tags: services

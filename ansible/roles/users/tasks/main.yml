@@ -1,0 +1,46 @@
+---
+# tasks related to user creation/config
+
+- name: configure default user
+  block:
+    - name: create default user
+      user:
+        name: "{{ default_user }}"
+        state: present
+        groups: "{{ default_groups | default('') }}"
+
+    - name: deploy ssh key for default user
+      authorized_key:
+        user: "{{ default_user }}"
+        key: "{{ default_user_key }}"
+        state: present
+
+    - name: sudo without password for default user
+      copy:
+        content: "{{ default_user }} ALL=(ALL:ALL) NOPASSWD:ALL"
+        dest: "/etc/sudoers.d/{{ default_user }}"
+        mode: 0440
+  become: yes
+
+- name: disable ubuntu user
+  block:
+    - name: disable password, expire account, disable shell for ubuntu
+      user:
+        name: ubuntu
+        password: '!'
+        expires: 0
+        shell: /sbin/nologin
+
+    - name: remove authorized_keys file for ubuntu
+      file:
+        path: /home/ubuntu/.ssh/authorized_keys
+        state: absent
+  when: ansible_user_id == 'ubuntu'
+  become: yes
+
+- name: delete ubuntu user
+  user:
+    name: ubuntu
+    state: absent
+  when: ansible_user_id != 'ubuntu'
+  become: yes

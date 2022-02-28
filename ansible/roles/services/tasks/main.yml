@@ -1,0 +1,38 @@
+---
+# manage default services
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  become: yes
+
+
+- name: configure networking
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - { src: 00-ethernets.yaml.j2, dest: /etc/netplan/00-ethernets.yaml }
+    - { src: 01-wifis.yaml.j2, dest: /etc/netplan/01-wifis.yaml }
+  become: yes
+  notify: "netplan apply"
+
+# get rid of cloud-init
+- name: remove cloud-init
+  block:
+    - name: uninstall cloud-init
+      apt:
+        name: cloud-init
+        state: absent
+        purge: yes
+    - name: remove cloud-init directories
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/netplan/50-cloud-init.yaml
+        - /etc/cloud
+        - /var/lib/cloud
+  become: yes

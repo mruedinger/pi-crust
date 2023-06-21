@@ -6,7 +6,7 @@ The goal of this project is to bootstrap a Raspberry Pi and provide tools to mai
 ## Equipment
 The following hardware was used for this project:
 * [Raspberry Pi 3 Model B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/) (the 3B+ and 4B should also work)
-* [Samsung PRO Endurance MicroSD card](https://www.amazon.com/dp/B07B98GXQT)
+* [Samsung PRO Endurance MicroSD card](https://www.amazon.com/dp/B09W9XYQCQ)
 * A MicroSD card reader
 
 I chose the Samsung PRO Endurance because it scored high on the following benchmarks, and was the cheapest of the best options at time of purchase:

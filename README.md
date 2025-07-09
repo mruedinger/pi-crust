@@ -14,11 +14,11 @@ https://www.jeffgeerling.com/blog/2019/raspberry-pi-microsd-card-performance-com
 https://www.tomshardware.com/best-picks/raspberry-pi-microsd-cards
 
 ## Image
-I chose Ubuntu Server 20.04.4 LTS 64 bit as my OS. The easiest method to flash the OS to your microSD card involves using the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/).
+I previously used Ubuntu Server LTS for my OS, however, I've recently switched to Raspberry Pi OS Lite for app compatibility and feature availability. That said, your Debian based install of choice should likely work fine but may require some config tweaks.
 
-The tool is pretty intuitive. Make sure you click the gear icon for advanced options to set up SSH, default username, wifi, and other settings.
+The easiest method to flash the OS to your microSD card involves using the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/).
 
-Note: With Ubuntu Server 20.04.4 LTS, wifi settings will not be applied automatically on first boot. If you're doing a headless install, the easiest way to solve this is to just power cycle the pi after a few minutes - the wifi settings will apply on second boot. This issue is fixed in the latest dev release (so that wifi settings apply on first boot), so it's possible that a fix will make it to LTS before long.
+The tool is pretty intuitive. Make sure to select "Edit Settings" when prompted to "Use OS customisation?" to set up SSH, default username, wifi, and other desired settings.
 
 [Pi docs for the imager tool](https://www.raspberrypi.com/documentation/computers/getting-started.html#installing-the-operating-system).
 

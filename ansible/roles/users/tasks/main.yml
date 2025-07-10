@@ -1,6 +1,8 @@
 ---
-# tasks related to user creation/config
+# this task is deprecated because the default user is now set up via OS customization in the pi imager tool, and the ubuntu/pi user is no longer created
+# keeping the task here as a template in case there is a need for additional user creation/customization
 
+# tasks related to user creation/config
 - name: configure default user
   block:
     - name: create default user

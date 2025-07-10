@@ -5,34 +5,40 @@
     name: "{{ inventory_hostname }}"
   become: yes
 
+# might add some other basic stuff here, but for now I just want to ensure the hostname matches ansible inventory.
 
-- name: configure networking
-  template:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-    owner: root
-    group: root
-    mode: '0644'
-  loop:
-    - { src: 00-ethernets.yaml.j2, dest: /etc/netplan/00-ethernets.yaml }
-    - { src: 01-wifis.yaml.j2, dest: /etc/netplan/01-wifis.yaml }
-  become: yes
-  notify: "netplan apply"
+# I use ethernet for my pis and no longer need to configure wireless networking
+# cloud-init does not appear to be present on a fresh install (it used to be on ubuntu)
+# my main goal, originally, was to reduce the number of running services and prevent cloud-init being able to overwrite changes after first boot
+# my research indicates that the pi imager tool creates a script at /boot/firstrun.sh which applies the customized settings and then deletes itself
 
-# get rid of cloud-init
-- name: remove cloud-init
-  block:
-    - name: uninstall cloud-init
-      apt:
-        name: cloud-init
-        state: absent
-        purge: yes
-    - name: remove cloud-init directories
-      file:
-        path: "{{ item }}"
-        state: absent
-      loop:
-        - /etc/netplan/50-cloud-init.yaml
-        - /etc/cloud
-        - /var/lib/cloud
-  become: yes
+#- name: configure networking
+#  template:
+#    src: '{{ item.src }}'
+#    dest: '{{ item.dest }}'
+#    owner: root
+#    group: root
+#    mode: '0644'
+#  loop:
+#    - { src: 00-ethernets.yaml.j2, dest: /etc/netplan/00-ethernets.yaml }
+#    - { src: 01-wifis.yaml.j2, dest: /etc/netplan/01-wifis.yaml }
+#  become: yes
+#  notify: "netplan apply"
+#
+## get rid of cloud-init
+#- name: remove cloud-init
+#  block:
+#    - name: uninstall cloud-init
+#      apt:
+#        name: cloud-init
+#        state: absent
+#        purge: yes
+#    - name: remove cloud-init directories
+#      file:
+#        path: "{{ item }}"
+#        state: absent
+#      loop:
+#        - /etc/netplan/50-cloud-init.yaml
+#        - /etc/cloud
+#        - /var/lib/cloud
+#  become: yes

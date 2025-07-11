@@ -1,0 +1,22 @@
+---
+
+- name: Initialize Raspberry Pi host
+  hosts: all
+  become: true
+  tasks:
+    - name: Set hostname to match ansible inventory
+      ansible.builtin.hostname:
+        name: "{{ inventory_hostname }}"
+        
+    - name: Upgrade all packages
+      ansible.builtin.apt:
+        upgrade: full
+        update_cache: yes
+      register: result
+
+    - name: Reboot if packages were upgraded
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible due to package upgrade"
+        pre_reboot_delay: 5
+        post_reboot_delay: 30
+      when: result is changed

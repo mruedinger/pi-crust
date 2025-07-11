@@ -1,7 +1,11 @@
 # pi-crust
 
 ## Goal
-The goal of this project is to bootstrap a Raspberry Pi and provide tools to maintain the OS and supporting services. Just as a pie's crust supports its filling - pi-crust lays the foundation for running applications on your pi!
+The goal of this project is to walk through imaging and baseline configuration of a Raspberry Pi.
+
+As it turns out (upon revisiting this after several years), the pi imager tool now takes care of all my personal needs except setting the hostname to match ansible inventory and performing an update & reboot.
+
+I'll keep the old roles and playbooks in this repo in case I find bits of baseline config that are missing over time, but for now, they're no longer needed.
 
 ## Equipment
 The following hardware was used for this project:
@@ -16,7 +20,7 @@ https://www.tomshardware.com/best-picks/raspberry-pi-microsd-cards
 ## Image
 I previously used Ubuntu Server LTS for my OS, however, I've recently switched to Raspberry Pi OS Lite for app compatibility and feature availability. That said, your Debian based install of choice should likely work fine but may require some config tweaks.
 
-The easiest method to flash the OS to your microSD card involves using the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/).
+I recommend using the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/) to flash your SD card with your desired OS.
 
 The tool is pretty intuitive. Make sure to select "Edit Settings" when prompted to "Use OS customisation?" to set up SSH, default username, wifi, and other desired settings.
 
@@ -24,9 +28,9 @@ The tool is pretty intuitive. Make sure to select "Edit Settings" when prompted 
 
 ## Run
 Prereqs:
-* update hosts file
-* update vars in services and users roles
-
+* update [hosts](https://github.com/mruedinger/pi-crust/blob/main/ansible/hosts) file
+* update the [services](https://github.com/mruedinger/pi-crust/blob/main/ansible/roles/services/vars/main.yml) and [users](https://github.com/mruedinger/pi-crust/blob/main/ansible/roles/users/vars/main.yml) vars if you'll be executing either of those roles
+ 
 Run the setup playbook:
 `ansible-playbook -i hosts bake.yml`
 

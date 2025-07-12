@@ -1,0 +1,11 @@
+---
+# baseline user and service configuration
+
+# disabled until necessity dictates otherwise
+
+#- hosts: all
+#  roles:
+#    - role: users
+#      tags: users
+#    - role: services
+#      tags: services

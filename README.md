@@ -32,7 +32,9 @@ Prereqs:
 * update the [services](https://github.com/mruedinger/pi-crust/blob/main/ansible/roles/services/vars/main.yml) and [users](https://github.com/mruedinger/pi-crust/blob/main/ansible/roles/users/vars/main.yml) vars if you'll be executing either of those roles
 
 Run configure-pi playbook if you have users or services to set up:
+
 `ansible-playbook -i hosts configure-pi.yml`
 
 Run initialize-pi playbook to upgrade packages:
+
 `ansible-playbook -i hosts initialize-pi.yml`

@@ -30,12 +30,9 @@ The tool is pretty intuitive. Make sure to select "Edit Settings" when prompted 
 Prereqs:
 * update [hosts](https://github.com/mruedinger/pi-crust/blob/main/ansible/hosts) file
 * update the [services](https://github.com/mruedinger/pi-crust/blob/main/ansible/roles/services/vars/main.yml) and [users](https://github.com/mruedinger/pi-crust/blob/main/ansible/roles/users/vars/main.yml) vars if you'll be executing either of those roles
- 
-Run the setup playbook:
-`ansible-playbook -i hosts bake.yml`
 
-Upgrade installed packages:
-`ansible-playbook -i hosts upgrade.yml`
+Run configure-pi playbook if you have users or services to set up:
+`ansible-playbook -i hosts configure-pi.yml`
 
-Reboot:
-`ansible <hostname> -i hosts -b -a "reboot"`
+Run initialize-pi playbook to upgrade packages:
+`ansible-playbook -i hosts initialize-pi.yml`
